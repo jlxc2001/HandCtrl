@@ -15,6 +15,7 @@ public class TouchServerService extends Service {
 
     private CursorOverlay cursorOverlay;
     private TouchHttpServer server;
+    private TouchUdpServer udpServer;
 
     public static boolean isRunning() {
         return running;
@@ -28,7 +29,9 @@ public class TouchServerService extends Service {
         cursorOverlay = new CursorOverlay(this);
         cursorOverlay.show();
         server = new TouchHttpServer(this, cursorOverlay, PORT);
+        udpServer = new TouchUdpServer(cursorOverlay, PORT);
         server.start();
+        udpServer.start();
     }
 
     @Override
@@ -36,6 +39,7 @@ public class TouchServerService extends Service {
         running = true;
         if (cursorOverlay != null) cursorOverlay.show();
         if (server != null && !server.isAlive()) server.start();
+        if (udpServer != null && !udpServer.isAlive()) udpServer.start();
         return START_STICKY;
     }
 
@@ -43,6 +47,7 @@ public class TouchServerService extends Service {
     public void onDestroy() {
         running = false;
         if (server != null) server.stop();
+        if (udpServer != null) udpServer.stop();
         if (cursorOverlay != null) cursorOverlay.hide();
         super.onDestroy();
     }
@@ -71,7 +76,7 @@ public class TouchServerService extends Service {
         Notification notification = builder
                 .setSmallIcon(android.R.drawable.ic_menu_manage)
                 .setContentTitle("WiFi Touch Demo 运行中")
-                .setContentText("局域网触控服务端口：" + PORT)
+                .setContentText("局域网触控服务端口：" + PORT + "（HTTP/UDP）")
                 .setContentIntent(pi)
                 .setOngoing(true)
                 .build();

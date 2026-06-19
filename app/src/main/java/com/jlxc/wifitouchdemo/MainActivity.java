@@ -47,7 +47,7 @@ public class MainActivity extends Activity {
         root.addView(title, new LinearLayout.LayoutParams(-1, -2));
 
         TextView desc = new TextView(this);
-        desc.setText("把安卓车机变成局域网可控设备：手机浏览器打开车机 IP 后，可以移动屏幕悬浮光标并点击。\n\n需要权限：悬浮窗 + 无障碍服务。");
+        desc.setText("把安卓车机变成局域网可控设备：手机浏览器或手机端发送器连接车机 IP 后，可以移动屏幕悬浮光标并点击。\n\n需要权限：悬浮窗 + 无障碍服务。\n\n新增：UDP 坐标接口，端口与 HTTP 相同，格式：SET 123.4 567.8");
         desc.setTextSize(16);
         desc.setTextColor(Color.DKGRAY);
         desc.setPadding(0, dp(12), 0, dp(12));
@@ -116,7 +116,7 @@ public class MainActivity extends Activity {
                 "无障碍服务：" + (accessibility ? "已开启" : "未开启") + "\n" +
                 "触控服务：" + (running ? "运行中" : "未运行") + "\n" +
                 "车机 IP：" + ip + "\n" +
-                "端口：47220");
+                "端口：47220（HTTP/UDP 同端口）");
 
         if (TextUtils.isEmpty(ip) || "0.0.0.0".equals(ip)) {
             urlView.setText("未获取到局域网 IP，请确认 WiFi/热点已连接");
