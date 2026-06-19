@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">WiFi Touch Demo</string>
+    <string name="accessibility_service_name">WiFi Touch Demo 输入服务</string>
+    <string name="accessibility_service_description">用于接收局域网触控指令，并通过无障碍手势模拟点击、长按和滑动。</string>
+</resources>
